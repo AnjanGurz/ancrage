@@ -125,7 +125,7 @@
         .mt-1 { margin-top: 8px; }
         .mt-2 { margin-top: 16px; }
         .mt-3 { margin-top: 24px; }
-        
+
         /* === steps === */
         .step-row {
         display: flex;
@@ -241,6 +241,64 @@
 
   <script>
     // logic goes here
+        // === state ===
+        const STORAGE_KEYS = {
+        onboarded: 'ancrage_onboarded',
+        blocks:    'ancrage_blocks',
+        checked:   'ancrage_checked',
+        parking:   'ancrage_parking',
+        streak:    'ancrage_streak',
+        };
+
+        // === default blocks ===
+        const DEFAULT_BLOCKS = [
+        { id: 1, time: '4:00',       name: 'Wake + anchor',          cat: 'reset'  },
+        { id: 2, time: '4:15 – 6:00',name: 'French — homework',      cat: 'french' },
+        { id: 3, time: '6:00 – 7:00',name: 'French — listening',     cat: 'french' },
+        { id: 4, time: '7:00 – 8:00',name: 'French — speaking',      cat: 'french' },
+        { id: 5, time: '8:00 – 9:15',name: 'French — curiosity time',cat: 'french' },
+        { id: 6, time: '9:15 – 10:30',name: 'Dev — ship one thing',  cat: 'dev'    },
+        ];
+
+        // === helpers ===
+        function save(key, value) {
+        localStorage.setItem(key, JSON.stringify(value));
+        }
+
+        function load(key, fallback = null) {
+        const item = localStorage.getItem(key);
+        return item ? JSON.parse(item) : fallback;
+        }
+
+        function showScreen(id) {
+        document.getElementById('screen-onboarding')
+            .classList.add('hidden');
+        document.getElementById('screen-app')
+            .classList.add('hidden');
+        document.getElementById(id)
+            .classList.remove('hidden');
+        }
+
+        // === init ===
+        function init() {
+        const onboarded = load(STORAGE_KEYS.onboarded);
+
+        if (!onboarded) {
+            showScreen('screen-onboarding');
+            document
+            .getElementById('btn-get-started')
+            .addEventListener('click', () => {
+                save(STORAGE_KEYS.onboarded, true);
+                save(STORAGE_KEYS.blocks, DEFAULT_BLOCKS);
+                showScreen('screen-app');
+            });
+        } else {
+            showScreen('screen-app');
+        }
+        }
+
+        // === run ===
+        init();
   </script>
 
 </body>
