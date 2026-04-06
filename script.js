@@ -39,16 +39,17 @@ document.getElementById(id)
 
 // === tab switching ===
 function switchTab(name) {
-document.querySelectorAll('.tab-panel')
+  document.querySelectorAll('.tab-panel')
     .forEach(p => p.classList.add('hidden'));
-document.querySelectorAll('.tab')
+  document.querySelectorAll('.tab')
     .forEach(t => t.classList.remove('active'));
 
-document.getElementById('tab-' + name)
+  document.getElementById('tab-' + name)
     .classList.remove('hidden');
-event.target.classList.add('active');
+  event.target.classList.add('active');
 
-if (name === 'parking') renderParking();
+  if (name === 'parking') renderParking();
+  if (name === 'streak')  renderStreak();
 }
 
 // === render blocks ===
@@ -222,6 +223,94 @@ document.getElementById('park-input')
     .addEventListener('keydown', e => {
     if (e.key === 'Enter') addParkItem();
     });
+}
+
+// === streak ===
+const DAY_NAMES = ['M','T','W','T','F','S','S'];
+
+function getWeekKey() {
+  const now    = new Date();
+  const day    = now.getDay();
+  const diff   = (day === 0 ? -6 : 1) - day;
+  const monday = new Date(now);
+  monday.setDate(now.getDate() + diff);
+  return monday.toISOString().slice(0, 10);
+}
+
+function getTodayIndex() {
+  const day = new Date().getDay();
+  return day === 0 ? 6 : day - 1;
+}
+
+function renderStreak() {
+  const streak  = load(STORAGE_KEYS.streak, {});
+  const weekKey = getWeekKey();
+  const week    = streak[weekKey] || [false,false,false,false,false,false,false];
+  const todayI  = getTodayIndex();
+  const grid    = document.getElementById('week-grid');
+
+  grid.innerHTML = '';
+
+  week.forEach((done, i) => {
+    const col      = document.createElement('div');
+    col.className  = 'day-col';
+    const isToday  = i === todayI;
+    col.innerHTML  = `
+      <div class="day-label">${DAY_NAMES[i]}</div>
+      <div class="day-dot 
+                  ${done ? 'done' : ''} 
+                  ${isToday && !done ? 'today' : ''}"
+           onclick="toggleDay(${i})">
+        ${done ? '✓' : ''}
+      </div>
+    `;
+    grid.appendChild(col);
+  });
+
+  updateStreakMetrics(streak, weekKey, week);
+}
+
+function toggleDay(i) {
+  const streak  = load(STORAGE_KEYS.streak, {});
+  const weekKey = getWeekKey();
+  const week    = streak[weekKey] || 
+    [false,false,false,false,false,false,false];
+  week[i]       = !week[i];
+  streak[weekKey] = week;
+  save(STORAGE_KEYS.streak, streak);
+  renderStreak();
+}
+
+function markToday() {
+  const streak    = load(STORAGE_KEYS.streak, {});
+  const weekKey   = getWeekKey();
+  const week      = streak[weekKey] || 
+    [false,false,false,false,false,false,false];
+  week[getTodayIndex()] = true;
+  streak[weekKey] = week;
+  save(STORAGE_KEYS.streak, streak);
+  renderStreak();
+}
+
+function updateStreakMetrics(streak, weekKey, week) {
+  const total   = Object.values(streak)
+    .flat().filter(Boolean).length;
+  const weekDone = week.filter(Boolean).length;
+  const pct     = Math.round(weekDone / 7 * 100);
+
+  var current = 0;
+  const todayI = getTodayIndex();
+  for (var i = todayI; i >= 0; i--) {
+    if (week[i]) current++;
+    else break;
+  }
+
+  document.getElementById('streak-current')
+    .textContent = current;
+  document.getElementById('streak-total')
+    .textContent = total;
+  document.getElementById('streak-pct')
+    .textContent = pct + '%';
 }
 
 // === run ===

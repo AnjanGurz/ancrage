@@ -288,8 +288,51 @@
         </div>
 
       <!-- streak -->
-      <div id="tab-streak" class="tab-panel hidden">
-      </div>
+        <div id="tab-streak" class="tab-panel hidden">
+
+            <h2 style="margin-bottom: 6px;">Streak</h2>
+            <p style="margin-bottom: 1.25rem;">
+                Mark each day you ran the system.
+            </p>
+
+            <!-- metrics -->
+            <div class="streak-metrics">
+                <div class="metric-card">
+                <div class="metric-val" id="streak-current">0</div>
+                <div class="metric-lbl">day streak</div>
+                </div>
+                <div class="metric-card">
+                <div class="metric-val" id="streak-total">0</div>
+                <div class="metric-lbl">total days</div>
+                </div>
+                <div class="metric-card">
+                <div class="metric-val" id="streak-pct">0%</div>
+                <div class="metric-lbl">this week</div>
+                </div>
+            </div>
+
+            <!-- week grid -->
+            <div style="margin: 1.25rem 0 6px;">
+                <p style="font-size: 12px; margin-bottom: 10px;">
+                Tap a day to mark it done
+                </p>
+                <div class="week-grid" id="week-grid"></div>
+            </div>
+
+            <!-- mark today button -->
+            <button class="btn btn-primary mt-2" 
+                    onclick="markToday()">
+                Mark today as done
+            </button>
+
+            <!-- reset note -->
+            <p style="text-align:center; 
+                        font-size:12px; 
+                        margin-top:10px;">
+                Week resets every Monday
+            </p>
+
+        </div>
 
     </div>
   </div>
