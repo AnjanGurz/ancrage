@@ -143,3 +143,12 @@ since parking.
 4. ⬜ Technical spec — file structure, data model, component list (`/docs/technical-spec.md`)
 5. ⬜ Build V1 (`index.html`)
 6. ⬜ Deploy to GitHub Pages
+
+
+
+Version 2.0 · Author: Anjan ·
+
+Features — V1 Scope
+    - [ ] Custom parking lot categories — 
+      user can create, name, and delete 
+      their own categories beyond the defaults

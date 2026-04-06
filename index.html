@@ -473,8 +473,70 @@
       </div>
 
       <!-- parking -->
-      <div id="tab-parking" class="tab-panel hidden">
-      </div>
+        <div id="tab-parking" class="tab-panel hidden">
+
+        <h2 style="margin-bottom: 6px;">Parking lot</h2>
+        <p style="margin-bottom: 1.25rem;">
+            Drift pulling you away? Park it here. 
+            Come back after your transition breath.
+        </p>
+
+        <!-- add item form -->
+        <div class="card" style="margin-bottom: 1.25rem;">
+            <input 
+            type="text" 
+            id="park-input"
+            placeholder="e.g. how subjonctif works with que..."
+            style="width: 100%;
+                    padding: 10px 12px;
+                    border: 1px solid var(--border);
+                    border-radius: 8px;
+                    font-size: 14px;
+                    color: var(--text-main);
+                    background: var(--bg-surface);
+                    margin-bottom: 10px;
+                    outline: none;"
+            />
+
+            <div style="display: flex; gap: 8px;">
+            <select 
+                id="park-cat"
+                style="flex: 1;
+                    padding: 8px 10px;
+                    border: 1px solid var(--border);
+                    border-radius: 8px;
+                    font-size: 13px;
+                    color: var(--text-main);
+                    background: var(--bg-surface);
+                    outline: none;">
+                <option value="french">French</option>
+                <option value="dev">Dev</option>
+                <option value="free">Other</option>
+            </select>
+
+            <button 
+                class="btn btn-primary"
+                onclick="addParkItem()"
+                style="width: auto; padding: 8px 20px;">
+                Park it
+            </button>
+            </div>
+        </div>
+
+        <!-- items list -->
+        <div id="park-list"></div>
+
+        <!-- empty state -->
+        <div id="park-empty" style="text-align: center; 
+                                    padding: 2rem 0;">
+            <p style="font-size: 13px;">
+            Nothing parked yet.<br/>
+            Stay on task — park drift here.
+            </p>
+        </div>
+
+        </div>
+      
 
       <!-- rules -->
       <div id="tab-rules" class="tab-panel hidden">
