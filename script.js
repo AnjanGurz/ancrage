@@ -1,3 +1,11 @@
+// Connect the Manager to your ancrage
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(() => console.log("Offline mode active!"))
+      .catch(err => console.log("Offline setup failed", err));
+  });
+}
 
     // === state ===
 const STORAGE_KEYS = {
