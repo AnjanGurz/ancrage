@@ -1,6 +1,6 @@
 # Ancrage — Product Requirements Document
 
-Version 1.0 · Author: Crunky · April 2026 · Status: Draft
+Version 1.0 · Author: Anjan · April 2026 · Status: Draft
 
 ---
 
