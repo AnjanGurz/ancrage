@@ -310,337 +310,185 @@
 </head>
 <body>
 
-  <!-- SCREENS -->
-  <div id="screen-onboarding">
-    <div id="screen-onboarding" class="app-shell">
-  <div style="padding: 2rem 1.5rem; 
-              display: flex; 
-              flex-direction: column; 
-              min-height: 100vh;">
+  <!-- SCREEN: onboarding -->
+  <div id="screen-onboarding" class="app-shell">
+    <div style="padding: 2rem 1.5rem; 
+                display: flex; 
+                flex-direction: column; 
+                min-height: 100vh;">
 
-    <!-- logo -->
-    <div style="text-align: center; padding: 3rem 0 2rem;">
-      <div style="width: 56px; 
-                  height: 56px; 
-                  background: var(--teal-light); 
-                  border-radius: 14px; 
-                  margin: 0 auto 12px;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;">
-        <span style="font-size: 24px;">⚓</span>
-      </div>
-      <h1>Ancrage</h1>
-      <p style="margin-top: 4px;">Your daily focus system</p>
-    </div>
-
-    <!-- headline -->
-    <div style="margin-bottom: 1.5rem;">
-      <h2 style="margin-bottom: 8px;">
-        Built for curious minds that drift.
-      </h2>
-      <p>
-        Ancrage helps you finish what you started, 
-        capture what interests you, and build momentum 
-        — one day at a time.
-      </p>
-    </div>
-
-    <!-- 3 steps -->
-    <div class="card" style="margin-bottom: 1.5rem;">
-      <div class="step-row">
-        <div class="step-num">1</div>
-        <div>
-          <h3>Complete your daily tasks in order</h3>
-          <p>Finish before exploring anything else. 
-             Structure before curiosity.</p>
+      <!-- logo -->
+      <div style="text-align: center; padding: 3rem 0 2rem;">
+        <div style="width: 56px; 
+                    height: 56px; 
+                    background: var(--teal-light); 
+                    border-radius: 14px; 
+                    margin: 0 auto 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;">
+          <span style="font-size: 24px;">⚓</span>
         </div>
+        <h1>Ancrage</h1>
+        <p style="margin-top: 4px;">Your daily focus system</p>
       </div>
-      <div class="step-row">
-        <div class="step-num">2</div>
-        <div>
-          <h3>Write down distractions, then return</h3>
-          <p>When curiosity pulls you away, capture it 
-             and come back.</p>
-        </div>
+
+      <!-- headline -->
+      <div style="margin-bottom: 1.5rem;">
+        <h2 style="margin-bottom: 8px;">
+          Built for curious minds that drift.
+        </h2>
+        <p>
+          Ancrage helps you finish what you started, 
+          capture what interests you, and build momentum 
+          — one day at a time.
+        </p>
       </div>
-      <div class="step-row">
-        <div class="step-num">3</div>
-        <div>
-          <h3>Mark each day done</h3>
-          <p>Build a streak. Watch consistency 
-             compound over time.</p>
+
+      <!-- 3 steps -->
+      <div class="card" style="margin-bottom: 1.5rem;">
+        <div class="step-row">
+          <div class="step-num">1</div>
+          <div>
+            <h3>Complete your daily tasks in order</h3>
+            <p>Finish before exploring anything else. 
+               Structure before curiosity.</p>
+          </div>
         </div>
-      </div>
-    </div>
-
-    <!-- cta -->
-    <div style="margin-top: auto;">
-      <button class="btn btn-primary" 
-              id="btn-get-started">
-        Get started
-      </button>
-      <p style="text-align: center; 
-                margin-top: 10px; 
-                font-size: 12px;">
-        Your data stays on your device.<br/>
-        No account. No login. Works offline.
-      </p>
-    </div>
-
-  </div>
-</div>
-  </div>
-
-  <div id="screen-app">
-    <div id="screen-app" class="app-shell hidden">
-
-  <!-- tab bar -->
-  <div class="tab-bar">
-    <button class="tab active" 
-            onclick="switchTab('today')">
-      Today
-    </button>
-    <button class="tab" 
-            onclick="switchTab('parking')">
-      Parking
-    </button>
-    <button class="tab" 
-            onclick="switchTab('rules')">
-      Rules
-    </button>
-    <button class="tab" 
-            onclick="switchTab('streak')">
-      Streak
-    </button>
-  </div>
-
-  <!-- tab panels -->
-  <div class="tab-content">
-
-    <!-- today -->
-    <div id="tab-today" class="tab-panel">
-
-      <!-- progress -->
-      <div class="progress-wrap">
-        <div class="progress-top">
-          <span id="progress-label" 
-                class="text-muted">
-            0 of 6 done
-          </span>
-          <span id="progress-pct" 
-                style="font-size:13px; 
-                       font-weight:500; 
-                       color:var(--teal);">
-            0%
-          </span>
+        <div class="step-row">
+          <div class="step-num">2</div>
+          <div>
+            <h3>Write down distractions, then return</h3>
+            <p>When curiosity pulls you away, capture it 
+               and come back.</p>
+          </div>
         </div>
-        <div class="progress-bar">
-          <div id="progress-fill" 
-               class="progress-fill">
+        <div class="step-row">
+          <div class="step-num">3</div>
+          <div>
+            <h3>Mark each day done</h3>
+            <p>Build a streak. Watch consistency 
+               compound over time.</p>
           </div>
         </div>
       </div>
 
-      <!-- blocks list -->
-      <div id="blocks-list"></div>
-
-      <!-- add block -->
-      <button class="btn mt-2" 
-              onclick="openAddBlock()">
-        + Add block
-      </button>
-
-      <!-- reset note -->
-      <p style="text-align:center; 
-                font-size:12px; 
-                margin-top:12px;">
-        Resets automatically at midnight
-      </p>
-
-      <!-- completed banner — hidden by default -->
-      <div id="completed-banner" 
-           class="completed-banner hidden">
-        <div style="font-size:15px; 
-                    font-weight:500; 
-                    color:var(--teal-dark);">
-          Tout est fait. 
-          <span style="font-size:12px; 
-                       color:var(--text-muted);">
-            [All done.]
-          </span>
-        </div>
-        <p style="font-size:13px; 
-                  margin-top:4px;">
-          Go mark today on your streak →
+      <!-- cta -->
+      <div style="margin-top: auto;">
+        <button class="btn btn-primary" 
+                id="btn-get-started">
+          Get started
+        </button>
+        <p style="text-align: center; 
+                  margin-top: 10px; 
+                  font-size: 12px;">
+          Your data stays on your device.<br/>
+          No account. No login. Works offline.
         </p>
       </div>
 
     </div>
-
-    <!-- parking — empty for now -->
-    <div id="tab-parking" 
-         class="tab-panel hidden">
-    </div>
-
-    <!-- rules — empty for now -->
-    <div id="tab-rules" 
-         class="tab-panel hidden">
-    </div>
-
-    <!-- streak — empty for now -->
-    <div id="tab-streak" 
-         class="tab-panel hidden">
-    </div>
-
   </div>
-</div>
+
+  <!-- SCREEN: app -->
+  <div id="screen-app" class="app-shell hidden">
+
+    <!-- tab bar -->
+    <div class="tab-bar">
+      <button class="tab active" 
+              onclick="switchTab('today')">
+        Today
+      </button>
+      <button class="tab" 
+              onclick="switchTab('parking')">
+        Parking
+      </button>
+      <button class="tab" 
+              onclick="switchTab('rules')">
+        Rules
+      </button>
+      <button class="tab" 
+              onclick="switchTab('streak')">
+        Streak
+      </button>
+    </div>
+
+    <!-- tab panels -->
+    <div class="tab-content">
+
+      <!-- today -->
+      <div id="tab-today" class="tab-panel">
+
+        <!-- progress -->
+        <div class="progress-wrap">
+          <div class="progress-top">
+            <span id="progress-label" class="text-muted">
+              0 of 6 done
+            </span>
+            <span id="progress-pct" 
+                  style="font-size:13px; 
+                         font-weight:500; 
+                         color:var(--teal);">
+              0%
+            </span>
+          </div>
+          <div class="progress-bar">
+            <div id="progress-fill" class="progress-fill">
+            </div>
+          </div>
+        </div>
+
+        <!-- blocks list -->
+        <div id="blocks-list"></div>
+
+        <!-- add block -->
+        <button class="btn mt-2" onclick="openAddBlock()">
+          + Add block
+        </button>
+
+        <!-- reset note -->
+        <p style="text-align:center; 
+                  font-size:12px; 
+                  margin-top:12px;">
+          Resets automatically at midnight
+        </p>
+
+        <!-- completed banner -->
+        <div id="completed-banner" 
+             class="completed-banner hidden">
+          <div style="font-size:15px; 
+                      font-weight:500; 
+                      color:var(--teal-dark);">
+            Tout est fait. 
+            <span style="font-size:12px; 
+                         color:var(--text-muted);">
+              [All done.]
+            </span>
+          </div>
+          <p style="font-size:13px; margin-top:4px;">
+            Go mark today on your streak →
+          </p>
+        </div>
+
+      </div>
+
+      <!-- parking -->
+      <div id="tab-parking" class="tab-panel hidden">
+      </div>
+
+      <!-- rules -->
+      <div id="tab-rules" class="tab-panel hidden">
+      </div>
+
+      <!-- streak -->
+      <div id="tab-streak" class="tab-panel hidden">
+      </div>
+
+    </div>
   </div>
 
   <script>
-    // logic goes here
-        // === state ===
-        const STORAGE_KEYS = {
-        onboarded: 'ancrage_onboarded',
-        blocks:    'ancrage_blocks',
-        checked:   'ancrage_checked',
-        parking:   'ancrage_parking',
-        streak:    'ancrage_streak',
-        };
-
-        // === default blocks ===
-        const DEFAULT_BLOCKS = [
-        { id: 1, time: '4:00',       name: 'Wake + anchor',          cat: 'reset'  },
-        { id: 2, time: '4:15 – 6:00',name: 'French — homework',      cat: 'french' },
-        { id: 3, time: '6:00 – 7:00',name: 'French — listening',     cat: 'french' },
-        { id: 4, time: '7:00 – 8:00',name: 'French — speaking',      cat: 'french' },
-        { id: 5, time: '8:00 – 9:15',name: 'French — curiosity time',cat: 'french' },
-        { id: 6, time: '9:15 – 10:30',name: 'Dev — ship one thing',  cat: 'dev'    },
-        ];
-
-        // === helpers ===
-        function save(key, value) {
-        localStorage.setItem(key, JSON.stringify(value));
-        }
-
-        function load(key, fallback = null) {
-        const item = localStorage.getItem(key);
-        return item ? JSON.parse(item) : fallback;
-        }
-
-        function showScreen(id) {
-        document.getElementById('screen-onboarding')
-            .classList.add('hidden');
-        document.getElementById('screen-app')
-            .classList.add('hidden');
-        document.getElementById(id)
-            .classList.remove('hidden');
-        }
-
-        // === tab switching ===
-        function switchTab(name) {
-        document.querySelectorAll('.tab-panel')
-            .forEach(p => p.classList.add('hidden'));
-        document.querySelectorAll('.tab')
-            .forEach(t => t.classList.remove('active'));
-
-        document.getElementById('tab-' + name)
-            .classList.remove('hidden');
-        event.target.classList.add('active');
-        }
-
-        // === render blocks ===
-        function renderBlocks() {
-        const blocks  = load(STORAGE_KEYS.blocks, DEFAULT_BLOCKS);
-        const checked = load(STORAGE_KEYS.checked, {});
-        const list    = document.getElementById('blocks-list');
-
-        list.innerHTML = '';
-
-        blocks.forEach(block => {
-            const isDone = !!checked[block.id];
-            const div    = document.createElement('div');
-            div.className = 'block-item';
-            div.innerHTML = `
-            <div class="check-circle ${isDone ? 'done' : ''}" 
-                onclick="toggleBlock(${block.id})">
-                <span class="check-tick">✓</span>
-            </div>
-            <div class="block-info">
-                <div class="block-time">${block.time}</div>
-                <div class="block-name ${isDone ? 'done' : ''}">
-                ${block.name}
-                </div>
-                <span class="badge badge-${block.cat}">
-                ${block.cat}
-                </span>
-            </div>
-            <button class="block-edit" 
-                    onclick="openEditBlock(${block.id})">
-                edit
-            </button>
-            `;
-            list.appendChild(div);
-        });
-
-        updateProgress(blocks, checked);
-        }
-
-        // === toggle block ===
-        function toggleBlock(id) {
-        const checked  = load(STORAGE_KEYS.checked, {});
-        checked[id]    = !checked[id];
-        save(STORAGE_KEYS.checked, checked);
-        renderBlocks();
-        }
-
-        // === progress ===
-        function updateProgress(blocks, checked) {
-        const total = blocks.length;
-        const done  = blocks.filter(b => !!checked[b.id]).length;
-        const pct   = total === 0 ? 0 : Math.round(done / total * 100);
-
-        document.getElementById('progress-label')
-            .textContent = `${done} of ${total} done`;
-        document.getElementById('progress-pct')
-            .textContent = `${pct}%`;
-        document.getElementById('progress-fill')
-            .style.width = pct + '%';
-
-        const banner = document.getElementById('completed-banner');
-        if (done === total && total > 0) {
-            banner.classList.remove('hidden');
-        } else {
-            banner.classList.add('hidden');
-        }
-        }
-
-        // === placeholders for edit ===
-        function openAddBlock()     { alert('Add block — coming soon'); }
-        function openEditBlock(id)  { alert('Edit block ' + id + ' — coming soon'); }
-
-        // === init ===
-        function init() {
-            const onboarded = load(STORAGE_KEYS.onboarded);
-
-            if (!onboarded) {
-                showScreen('screen-onboarding');
-                document
-                .getElementById('btn-get-started')
-                .addEventListener('click', () => {
-                    save(STORAGE_KEYS.onboarded, true);
-                    save(STORAGE_KEYS.blocks, DEFAULT_BLOCKS);
-                    showScreen('screen-app');
-                    renderBlocks();
-                });
-            } else {
-                showScreen('screen-app');
-                renderBlocks();
-            }
-    }
-
-        // === run ===
-        init();
+    /* paste your entire script here unchanged */
   </script>
 
 </body>
