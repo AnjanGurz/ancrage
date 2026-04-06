@@ -125,12 +125,118 @@
         .mt-1 { margin-top: 8px; }
         .mt-2 { margin-top: 16px; }
         .mt-3 { margin-top: 24px; }
+        
+        /* === steps === */
+        .step-row {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        margin-bottom: 16px;
+        }
+
+        .step-row:last-child {
+        margin-bottom: 0;
+        }
+
+        .step-num {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: var(--teal-light);
+        color: var(--teal-dark);
+        font-size: 12px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        margin-top: 2px;
+        }
   </style>
 </head>
 <body>
 
   <!-- SCREENS -->
-  <div id="screen-onboarding"></div>
+  <div id="screen-onboarding">
+    <div id="screen-onboarding" class="app-shell">
+  <div style="padding: 2rem 1.5rem; 
+              display: flex; 
+              flex-direction: column; 
+              min-height: 100vh;">
+
+    <!-- logo -->
+    <div style="text-align: center; padding: 3rem 0 2rem;">
+      <div style="width: 56px; 
+                  height: 56px; 
+                  background: var(--teal-light); 
+                  border-radius: 14px; 
+                  margin: 0 auto 12px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;">
+        <span style="font-size: 24px;">⚓</span>
+      </div>
+      <h1>Ancrage</h1>
+      <p style="margin-top: 4px;">Your daily focus system</p>
+    </div>
+
+    <!-- headline -->
+    <div style="margin-bottom: 1.5rem;">
+      <h2 style="margin-bottom: 8px;">
+        Built for curious minds that drift.
+      </h2>
+      <p>
+        Ancrage helps you finish what you started, 
+        capture what interests you, and build momentum 
+        — one day at a time.
+      </p>
+    </div>
+
+    <!-- 3 steps -->
+    <div class="card" style="margin-bottom: 1.5rem;">
+      <div class="step-row">
+        <div class="step-num">1</div>
+        <div>
+          <h3>Complete your daily tasks in order</h3>
+          <p>Finish before exploring anything else. 
+             Structure before curiosity.</p>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">2</div>
+        <div>
+          <h3>Write down distractions, then return</h3>
+          <p>When curiosity pulls you away, capture it 
+             and come back.</p>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">3</div>
+        <div>
+          <h3>Mark each day done</h3>
+          <p>Build a streak. Watch consistency 
+             compound over time.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- cta -->
+    <div style="margin-top: auto;">
+      <button class="btn btn-primary" 
+              id="btn-get-started">
+        Get started
+      </button>
+      <p style="text-align: center; 
+                margin-top: 10px; 
+                font-size: 12px;">
+        Your data stays on your device.<br/>
+        No account. No login. Works offline.
+      </p>
+    </div>
+
+  </div>
+</div>
+  </div>
   <div id="screen-app"></div>
 
   <script>
