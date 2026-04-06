@@ -662,12 +662,204 @@
         return `${Math.floor(hrs / 24)}d ago`;
         }
 
-        // === placeholders ===
-        function openAddBlock()    { alert('Add block — coming soon'); }
-        function openEditBlock(id) { alert('Edit block ' + id + ' — coming soon'); }
+        // === block modal ===
+function openAddBlock() {
+  showBlockModal(null);
+}
 
+function openEditBlock(id) {
+  const blocks = load(STORAGE_KEYS.blocks, DEFAULT_BLOCKS);
+  const block  = blocks.find(b => b.id === id);
+  if (block) showBlockModal(block);
+}
+
+function showBlockModal(block) {
+  const isEdit  = !!block;
+  const overlay = document.createElement('div');
+  overlay.id    = 'block-modal-overlay';
+  overlay.style.cssText = `
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    z-index: 100;
+  `;
+
+  overlay.innerHTML = `
+    <div style="background: white;
+                width: 100%;
+                max-width: 480px;
+                border-radius: 16px 16px 0 0;
+                padding: 1.5rem 1.25rem 2rem;">
+
+      <div style="display:flex; 
+                  justify-content:space-between; 
+                  align-items:center;
+                  margin-bottom: 1.25rem;">
+        <h3>${isEdit ? 'Edit block' : 'Add block'}</h3>
+        <button onclick="closeBlockModal()"
+                style="background:none;
+                       border:none;
+                       font-size:18px;
+                       cursor:pointer;
+                       color:#999;">
+          ✕
+        </button>
+      </div>
+
+      <div style="margin-bottom: 12px;">
+        <label style="font-size:12px; 
+                      color:#999; 
+                      display:block; 
+                      margin-bottom:4px;">
+          Block name
+        </label>
+        <input 
+          type="text"
+          id="modal-name"
+          value="${isEdit ? block.name : ''}"
+          placeholder="e.g. French — homework"
+          style="width:100%;
+                 padding: 10px 12px;
+                 border: 1px solid rgba(0,0,0,0.1);
+                 border-radius: 8px;
+                 font-size: 14px;
+                 outline: none;"
+        />
+      </div>
+
+      <div style="margin-bottom: 12px;">
+        <label style="font-size:12px; 
+                      color:#999; 
+                      display:block; 
+                      margin-bottom:4px;">
+          Time
+        </label>
+        <input 
+          type="text"
+          id="modal-time"
+          value="${isEdit ? block.time : ''}"
+          placeholder="e.g. 4:15 – 6:00"
+          style="width:100%;
+                 padding: 10px 12px;
+                 border: 1px solid rgba(0,0,0,0.1);
+                 border-radius: 8px;
+                 font-size: 14px;
+                 outline: none;"
+        />
+      </div>
+
+      <div style="margin-bottom: 1.5rem;">
+        <label style="font-size:12px; 
+                      color:#999; 
+                      display:block; 
+                      margin-bottom:4px;">
+          Category
+        </label>
+        <select 
+          id="modal-cat"
+          style="width:100%;
+                 padding: 10px 12px;
+                 border: 1px solid rgba(0,0,0,0.1);
+                 border-radius: 8px;
+                 font-size: 14px;
+                 background: white;
+                 outline: none;">
+          <option value="french" 
+            ${isEdit && block.cat === 'french' ? 'selected' : ''}>
+            French
+          </option>
+          <option value="dev"    
+            ${isEdit && block.cat === 'dev' ? 'selected' : ''}>
+            Dev
+          </option>
+          <option value="reset"  
+            ${isEdit && block.cat === 'reset' ? 'selected' : ''}>
+            Reset
+          </option>
+          <option value="free"   
+            ${isEdit && block.cat === 'free' ? 'selected' : ''}>
+            Free
+          </option>
+        </select>
+      </div>
+
+      <button 
+        class="btn btn-primary"
+        onclick="saveBlock(${isEdit ? block.id : 'null'})">
+        ${isEdit ? 'Save changes' : 'Add block'}
+      </button>
+
+      ${isEdit ? `
+        <button 
+          onclick="deleteBlock(${block.id})"
+          style="display:block;
+                 width:100%;
+                 margin-top:10px;
+                 padding:12px;
+                 border:none;
+                 border-radius:10px;
+                 background:none;
+                 font-size:14px;
+                 color:#E24B4A;
+                 cursor:pointer;">
+          Delete block
+        </button>
+      ` : ''}
+
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+  document.getElementById('modal-name').focus();
+}
+
+function closeBlockModal() {
+  const overlay = document.getElementById('block-modal-overlay');
+  if (overlay) overlay.remove();
+}
+
+function saveBlock(id) {
+  const name = document.getElementById('modal-name').value.trim();
+  const time = document.getElementById('modal-time').value.trim();
+  const cat  = document.getElementById('modal-cat').value;
+
+  if (!name) return;
+
+  const blocks = load(STORAGE_KEYS.blocks, DEFAULT_BLOCKS);
+
+  if (id) {
+    const index = blocks.findIndex(b => b.id === id);
+    if (index > -1) {
+      blocks[index] = { id, name, time, cat };
+    }
+  } else {
+    blocks.push({
+      id:   Date.now(),
+      name,
+      time,
+      cat,
+    });
+  }
+
+  save(STORAGE_KEYS.blocks, blocks);
+  closeBlockModal();
+  renderBlocks();
+}
+
+function deleteBlock(id) {
+  const blocks  = load(STORAGE_KEYS.blocks, DEFAULT_BLOCKS);
+  const updated = blocks.filter(b => b.id !== id);
+  save(STORAGE_KEYS.blocks, updated);
+  closeBlockModal();
+  renderBlocks();
+}
         // === init ===
         function init() {
+        checkMidnightReset();
         const onboarded = load(STORAGE_KEYS.onboarded);
 
         if (!onboarded) {
@@ -777,6 +969,18 @@
             .textContent = total;
         document.getElementById('streak-pct')
             .textContent = pct + '%';
+        }
+
+        // === midnight reset ===
+        function checkMidnightReset() {
+        const lastOpen = load('ancrage_last_open', null);
+        const today    = new Date().toISOString().slice(0, 10);
+
+        if (lastOpen && lastOpen !== today) {
+            save(STORAGE_KEYS.checked, {});
+        }
+
+        save('ancrage_last_open', today);
         }
 
         // === run ===
